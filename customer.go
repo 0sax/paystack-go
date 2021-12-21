@@ -34,6 +34,22 @@ type CustomerList struct {
 	Values []Customer `json:"data"`
 }
 
+//CustomerIdentityValidation is a request object for validating a customer's ID
+type CustomerIdentityValidation struct {
+	Country       string `json:"country,omitempty"`
+	Type          string `json:"type,omitempty"`
+	Value         string `json:"value,omitempty"`
+	FirstName     string `json:"first_name,omitempty"`
+	LastName      string `json:"last_name,omitempty"`
+	AccountNumber string `json:"account_number,omitempty"`
+	BankCode      string `json:"bank_code,omitempty"`
+}
+
+type CustomerIdentityValidationResponse struct {
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
+}
+
 // Create creates a new customer
 // For more details see https://developers.paystack.co/v1.0/reference#create-customer
 func (s *CustomerService) Create(customer *Customer) (*Customer, error) {
@@ -52,6 +68,24 @@ func (s *CustomerService) Update(customer *Customer) (*Customer, error) {
 	err := s.client.Call("PUT", u, customer, cust)
 
 	return cust, err
+}
+
+// ValidateIdentityByBVN validates a customer's Identity with their BVN Number
+// For more details see https://paystack.com/docs/api/#customer-validate
+func (s *CustomerService) ValidateIdentityByBVN(customer *Customer, country, bvn string) (*CustomerIdentityValidationResponse, error) {
+	u := fmt.Sprintf("customer/%v/identification", customer.ID)
+	vReq := &CustomerIdentityValidation{
+		Country:   country,
+		Type:      "bvn",
+		Value:     bvn,
+		FirstName: customer.FirstName,
+		LastName:  customer.LastName,
+	}
+	var vResp *CustomerIdentityValidationResponse
+
+	err := s.client.Call("PUT", u, vReq, vResp)
+
+	return vResp, err
 }
 
 // Get returns the details of a customer.
