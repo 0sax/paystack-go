@@ -59,6 +59,7 @@ type Client struct {
 	Charge       *ChargeService
 	Bank         *BankService
 	BulkCharge   *BulkChargeService
+	DedicatedAccount *DedicatedNubanService
 
 	LoggingEnabled bool
 	Log            Logger
@@ -126,6 +127,7 @@ func NewClient(key string, httpClient *http.Client) *Client {
 	c.Charge = (*ChargeService)(&c.common)
 	c.Bank = (*BankService)(&c.common)
 	c.BulkCharge = (*BulkChargeService)(&c.common)
+	c.DedicatedAccount = (*DedicatedNubanService)(&c.common)
 
 	return c
 }

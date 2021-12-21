@@ -70,24 +70,6 @@ func (s *CustomerService) Update(customer *Customer) (*Customer, error) {
 	return cust, err
 }
 
-// ValidateIdentityByBVN validates a customer's Identity with their BVN Number
-// For more details see https://paystack.com/docs/api/#customer-validate
-func (s *CustomerService) ValidateIdentityByBVN(customer *Customer, country, bvn string) (*CustomerIdentityValidationResponse, error) {
-	u := fmt.Sprintf("customer/%v/identification", customer.ID)
-	vReq := &CustomerIdentityValidation{
-		Country:   country,
-		Type:      "bvn",
-		Value:     bvn,
-		FirstName: customer.FirstName,
-		LastName:  customer.LastName,
-	}
-	var vResp *CustomerIdentityValidationResponse
-
-	err := s.client.Call("PUT", u, vReq, vResp)
-
-	return vResp, err
-}
-
 // Get returns the details of a customer.
 // For more details see https://paystack.com/docs/api/#customer-fetch
 func (s *CustomerService) Get(customerCode string) (*Customer, error) {
@@ -139,4 +121,22 @@ func (s *CustomerService) DeactivateAuthorization(authorizationCode string) (*Re
 	err := s.client.Call("POST", "/customer/deactivate_authorization", params, resp)
 
 	return resp, err
+}
+
+// ValidateIdentityByBVN validates a customer's Identity with their BVN Number
+// For more details see https://paystack.com/docs/api/#customer-validate
+func (s *CustomerService) ValidateIdentityByBVN(customer *Customer, country, bvn string) (*Response, error) {
+	u := fmt.Sprintf("customer/%v/identification", customer.ID)
+	vReq := &CustomerIdentityValidation{
+		Country:   country,
+		Type:      "bvn",
+		Value:     bvn,
+		FirstName: customer.FirstName,
+		LastName:  customer.LastName,
+	}
+	var vResp *Response
+
+	err := s.client.Call("POST", u, vReq, vResp)
+
+	return vResp, err
 }
