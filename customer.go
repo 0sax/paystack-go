@@ -134,9 +134,9 @@ func (s *CustomerService) ValidateIdentityByBVN(customer *Customer, country, bvn
 		FirstName: customer.FirstName,
 		LastName:  customer.LastName,
 	}
-	var vResp *Response
 
-	err := s.client.Call("POST", u, vReq, vResp)
+	resp := &Response{}
+	err := s.client.Call("POST", u, vReq, resp)
 
-	return vResp, err
+	return resp, err
 }
