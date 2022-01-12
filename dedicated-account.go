@@ -62,6 +62,7 @@ func (s *DedicatedNubanService) Create(customerCode, bank, subAccount, splitCode
 		Customer:      customerCode,
 		PreferredBank: bank,
 	}
+	dn = &DedicatedNuban{}
 	err = s.client.Call("POST", u, dnReq, dn)
 	return
 }
