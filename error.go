@@ -31,7 +31,6 @@ type ErrorResponse struct {
 
 func newAPIError(resp *http.Response) *APIError {
 	p, _ := ioutil.ReadAll(resp.Body)
-
 	var paystackErrorResp ErrorResponse
 	_ = json.Unmarshal(p, &paystackErrorResp)
 	return &APIError{

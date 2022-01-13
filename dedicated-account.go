@@ -2,7 +2,6 @@ package paystack
 
 import (
 	"fmt"
-	"time"
 )
 
 // DedicatedNubanService handles operations related to Dedicated Accounts
@@ -29,15 +28,16 @@ type DedicatedNuban struct {
 	Metadata      interface{} `json:"metadata"`
 	Active        bool        `json:"active"`
 	Id            int         `json:"id"`
-	CreatedAt     time.Time   `json:"created_at"`
-	UpdatedAt     time.Time   `json:"updated_at"`
+	CreatedAt     string   `json:"created_at"`
+	UpdatedAt     string   `json:"updated_at"`
 	Assignment    struct {
 		Integration  int         `json:"integration"`
 		AssigneeId   int         `json:"assignee_id"`
+
 		AssigneeType string      `json:"assignee_type"`
 		Expired      bool        `json:"expired"`
 		AccountType  string      `json:"account_type"`
-		AssignedAt   time.Time   `json:"assigned_at"`
+		AssignedAt   string   `json:"assigned_at"`
 		ExpiredAt    interface{} `json:"expired_at"`
 	} `json:"assignment"`
 	Customer struct {
