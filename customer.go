@@ -45,10 +45,10 @@ type CustomerIdentityValidation struct {
 	BankCode      string `json:"bank_code,omitempty"`
 }
 
-type CustomerIdentityValidationResponse struct {
-	Status  string `json:"status,omitempty"`
-	Message string `json:"message,omitempty"`
-}
+//type CustomerIdentityValidationResponse struct {
+//	Status  string `json:"status,omitempty"`
+//	Message string `json:"message,omitempty"`
+//}
 
 // Create creates a new customer
 // For more details see https://developers.paystack.co/v1.0/reference#create-customer
