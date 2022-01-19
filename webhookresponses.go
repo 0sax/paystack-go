@@ -20,20 +20,20 @@ type WHCustomerIdentification struct {
 	} `json:"identification"`
 }
 type WHCharge struct {
-	Id              int         `json:"id"`
-	Domain          string      `json:"domain"`
-	Status          string      `json:"status"`
-	Reference       string      `json:"reference"`
-	Amount          int         `json:"amount"`
-	Message         interface{} `json:"message"`
-	GatewayResponse string      `json:"gateway_response"`
-	PaidAt          time.Time   `json:"paid_at"`
-	CreatedAt       time.Time   `json:"created_at"`
-	Channel         string      `json:"channel"`
-	Currency        string      `json:"currency"`
-	IpAddress string           `json:"ip_address"`
-	Metadata  WHChargeMetaData `json:"metadata"`
-	Log       struct {
+	Id              int              `json:"id"`
+	Domain          string           `json:"domain"`
+	Status          string           `json:"status"`
+	Reference       string           `json:"reference"`
+	Amount          int              `json:"amount"`
+	Message         interface{}      `json:"message"`
+	GatewayResponse string           `json:"gateway_response"`
+	PaidAt          time.Time        `json:"paid_at"`
+	CreatedAt       time.Time        `json:"created_at"`
+	Channel         string           `json:"channel"`
+	Currency        string           `json:"currency"`
+	IpAddress       string           `json:"ip_address"`
+	Metadata        WHChargeMetaData `json:"metadata"`
+	Log             struct {
 		TimeSpent      int           `json:"time_spent"`
 		Attempts       int           `json:"attempts"`
 		Authentication string        `json:"authentication"`
@@ -50,26 +50,36 @@ type WHCharge struct {
 	} `json:"log"`
 	Fees     interface{} `json:"fees"`
 	Customer struct {
-		Id           int            `json:"id"`
-		FirstName    string         `json:"first_name"`
-		LastName     string         `json:"last_name"`
-		Email        string         `json:"email"`
-		CustomerCode string         `json:"customer_code"`
-		Phone        string         `json:"phone"`
+		Id           int         `json:"id"`
+		FirstName    string      `json:"first_name"`
+		LastName     string      `json:"last_name"`
+		Email        string      `json:"email"`
+		CustomerCode string      `json:"customer_code"`
+		Phone        string      `json:"phone"`
 		Metadata     interface{} `json:"metadata"`
-		RiskAction   string         `json:"risk_action"`
+		RiskAction   string      `json:"risk_action"`
 	} `json:"customer"`
 	Authorization struct {
-		AuthorizationCode string `json:"authorization_code"`
-		Bin               string `json:"bin"`
-		Last4             string `json:"last4"`
-		ExpMonth          string `json:"exp_month"`
-		ExpYear           string `json:"exp_year"`
-		CardType          string `json:"card_type"`
-		Bank              string `json:"bank"`
-		CountryCode       string `json:"country_code"`
-		Brand             string `json:"brand"`
-		AccountName       string `json:"account_name"`
+		AuthorizationCode         string `json:"authorization_code"`
+		Bin                       string `json:"bin"`
+		Last4                     string `json:"last4"`
+		ExpMonth                  string `json:"exp_month"`
+		ExpYear                   string `json:"exp_year"`
+		CardType                  string `json:"card_type"`
+		Bank                      string `json:"bank"`
+		CountryCode               string `json:"country_code"`
+		Brand                     string `json:"brand"`
+		AccountName               string `json:"account_name"`
+		Channel                   string `json:"channel"`
+		Reusable                  bool   `json:"reusable"`
+		Signature                 interface{}
+		SenderBank                string `json:"sender_bank"`
+		SenderBankAccountNumber   string `json:"sender_bank_account_number"`
+		SenderCountry             string `json:"sender_country"`
+		SenderName                string `json:"sender_name"`
+		Narration                 string `json:"narration"`
+		ReceiverBankAccountNumber string `json:"receiver_bank_account_number"`
+		ReceiverBank              string `json:"receiver_bank"`
 	} `json:"authorization"`
 	Plan struct {
 	} `json:"plan"`
@@ -83,7 +93,7 @@ type WHChargeMetaData struct {
 	ReceiverAccountNumber string          `json:"receiver_account_number"`
 	ReceiverBank          string          `json:"receiver_bank"`
 	CustomFields          []WHCustomField `json:"custom_fields"`
-	Scheduled bool                        `json:"scheduled"`
+	Scheduled             bool            `json:"scheduled"`
 }
 type WHTransfer struct {
 	Amount      int         `json:"amount"`
@@ -133,6 +143,7 @@ type WHTransfer struct {
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
+
 func (pwo *WebhookObject) UnmarshalAsCustomerIdent() (ci *WHCustomerIdentification, err error) {
 	err = json.Unmarshal([]byte(pwo.Data), &ci)
 	return
