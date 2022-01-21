@@ -254,7 +254,7 @@ func (c *Client) decodeResponse(httpResp *http.Response, v interface{}) error {
 			c.Log.Printf("Paystack error: %+v", err)
 			c.Log.Printf("HTTP Response: %+v", resp)
 		}
-		return newAPIError(httpResp)
+		return newAPIError(httpResp,respBody)
 	}
 
 	if c.LoggingEnabled {

@@ -2,7 +2,6 @@ package paystack
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -29,10 +28,10 @@ type ErrorResponse struct {
 	Errors  map[string]interface{} `json:"errors,omitempty"`
 }
 
-func newAPIError(resp *http.Response) *APIError {
-	p, _ := ioutil.ReadAll(resp.Body)
+func newAPIError(resp *http.Response, b[]byte) *APIError {
+	//p, _ := ioutil.ReadAll(resp.Body)
 	var paystackErrorResp ErrorResponse
-	_ = json.Unmarshal(p, &paystackErrorResp)
+	_ = json.Unmarshal(b, &paystackErrorResp)
 	return &APIError{
 		HTTPStatusCode: resp.StatusCode,
 		Header:         resp.Header,
