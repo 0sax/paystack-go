@@ -39,6 +39,7 @@ type ChargeRequest struct {
 	AuthorizationCode string       `json:"authorization_code,omitempty"`
 	Pin               string       `json:"pin,omitempty"`
 	Metadata          *Metadata    `json:"metadata,omitempty"`
+	Reference         string       `json:"reference,omitempty"`
 }
 
 // Create submits a charge request using card details or bank details or authorization code
