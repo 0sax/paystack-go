@@ -2,7 +2,6 @@ package paystack
 
 import (
 	"fmt"
-	"net/url"
 	"time"
 )
 
@@ -114,9 +113,10 @@ func (s *ChargeService) Tokenize(req *ChargeRequest) (Response, error) {
 // SubmitPIN submits PIN to continue a charge
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitPIN(pin, reference string) (*ChargeResponse, error) {
-	data := url.Values{}
-	data.Add("pin", pin)
-	data.Add("reference", reference)
+	data := map[string]interface{}{
+		"pin": pin,
+		"reference": reference,
+	}
 	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_pin", data, &resp)
 	return resp, err
@@ -125,9 +125,10 @@ func (s *ChargeService) SubmitPIN(pin, reference string) (*ChargeResponse, error
 // SubmitOTP submits OTP to continue a charge
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitOTP(otp, reference string) (*ChargeResponse, error) {
-	data := url.Values{}
-	data.Add("otp", otp)
-	data.Add("reference", reference)
+	data := map[string]interface{}{
+		"otp": otp,
+		"reference": reference,
+	}
 	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_otp", data, &resp)
 	return resp, err
@@ -136,9 +137,10 @@ func (s *ChargeService) SubmitOTP(otp, reference string) (*ChargeResponse, error
 // SubmitPhone submits Phone when requested
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitPhone(phone, reference string) (*ChargeResponse, error) {
-	data := url.Values{}
-	data.Add("pin", phone)
-	data.Add("reference", reference)
+	data := map[string]interface{}{
+		"phone": phone,
+		"reference": reference,
+	}
 	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_phone", data, &resp)
 	return resp, err
@@ -147,9 +149,10 @@ func (s *ChargeService) SubmitPhone(phone, reference string) (*ChargeResponse, e
 // SubmitBirthday submits Birthday when requested
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitBirthday(birthday, reference string) (*ChargeResponse, error) {
-	data := url.Values{}
-	data.Add("pin", birthday)
-	data.Add("reference", reference)
+	data := map[string]interface{}{
+		"birthday": birthday,
+		"reference": reference,
+	}
 	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_birthday", data, &resp)
 	return resp, err
