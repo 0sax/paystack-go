@@ -113,44 +113,44 @@ func (s *ChargeService) Tokenize(req *ChargeRequest) (Response, error) {
 
 // SubmitPIN submits PIN to continue a charge
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
-func (s *ChargeService) SubmitPIN(pin, reference string) (Response, error) {
+func (s *ChargeService) SubmitPIN(pin, reference string) (*ChargeResponse, error) {
 	data := url.Values{}
 	data.Add("pin", pin)
 	data.Add("reference", reference)
-	resp := Response{}
+	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_pin", data, &resp)
 	return resp, err
 }
 
 // SubmitOTP submits OTP to continue a charge
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
-func (s *ChargeService) SubmitOTP(otp, reference string) (Response, error) {
+func (s *ChargeService) SubmitOTP(otp, reference string) (*ChargeResponse, error) {
 	data := url.Values{}
 	data.Add("pin", otp)
 	data.Add("reference", reference)
-	resp := Response{}
+	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_otp", data, &resp)
 	return resp, err
 }
 
 // SubmitPhone submits Phone when requested
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
-func (s *ChargeService) SubmitPhone(phone, reference string) (Response, error) {
+func (s *ChargeService) SubmitPhone(phone, reference string) (*ChargeResponse, error) {
 	data := url.Values{}
 	data.Add("pin", phone)
 	data.Add("reference", reference)
-	resp := Response{}
+	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_phone", data, &resp)
 	return resp, err
 }
 
 // SubmitBirthday submits Birthday when requested
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
-func (s *ChargeService) SubmitBirthday(birthday, reference string) (Response, error) {
+func (s *ChargeService) SubmitBirthday(birthday, reference string) (*ChargeResponse, error) {
 	data := url.Values{}
 	data.Add("pin", birthday)
 	data.Add("reference", reference)
-	resp := Response{}
+	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_birthday", data, &resp)
 	return resp, err
 }
