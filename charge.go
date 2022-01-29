@@ -2,7 +2,6 @@ package paystack
 
 import (
 	"fmt"
-	"time"
 )
 
 // ChargeService handles operations related to bulk charges
@@ -45,7 +44,7 @@ type ChargeRequest struct {
 type ChargeResponse struct {
 	Amount          int       `json:"amount"`
 	Currency        string    `json:"currency"`
-	TransactionDate time.Time `json:"transaction_date"`
+	TransactionDate interface{} `json:"transaction_date"`
 	Status          string    `json:"status"`
 	Reference       string    `json:"reference"`
 	DisplayText     string    `json:"display_text"`
@@ -53,13 +52,7 @@ type ChargeResponse struct {
 	CountryCode     string    `json:"country_code"`
 	Url             string    `json:"url"`
 	Domain          string    `json:"domain"`
-	Metadata        struct {
-		CustomFields []struct {
-			DisplayName  string `json:"display_name"`
-			VariableName string `json:"variable_name"`
-			Value        string `json:"value"`
-		} `json:"custom_fields"`
-	} `json:"metadata"`
+	Metadata        interface{} `json:"metadata"`
 	GatewayResponse string      `json:"gateway_response"`
 	Message         interface{} `json:"message"`
 	Channel         string      `json:"channel"`

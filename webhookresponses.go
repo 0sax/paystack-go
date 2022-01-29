@@ -32,7 +32,7 @@ type WHCharge struct {
 	Channel         string           `json:"channel"`
 	Currency        string           `json:"currency"`
 	IpAddress       string           `json:"ip_address"`
-	Metadata        WHChargeMetaData `json:"metadata"`
+	Metadata        interface{} `json:"metadata"`
 	Log             struct {
 		TimeSpent      int           `json:"time_spent"`
 		Attempts       int           `json:"attempts"`
