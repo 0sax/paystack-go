@@ -126,7 +126,7 @@ func (s *ChargeService) SubmitPIN(pin, reference string) (*ChargeResponse, error
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitOTP(otp, reference string) (*ChargeResponse, error) {
 	data := url.Values{}
-	data.Add("pin", otp)
+	data.Add("otp", otp)
 	data.Add("reference", reference)
 	resp := &ChargeResponse{}
 	err := s.client.Call("POST", "/charge/submit_otp", data, &resp)
