@@ -3,6 +3,7 @@ package paystack
 import (
 	"fmt"
 	"net/url"
+	"time"
 )
 
 // ChargeService handles operations related to bulk charges
@@ -42,11 +43,63 @@ type ChargeRequest struct {
 	Reference         string       `json:"reference,omitempty"`
 }
 
+type ChargeResponse struct {
+	Amount          int       `json:"amount"`
+	Currency        string    `json:"currency"`
+	TransactionDate time.Time `json:"transaction_date"`
+	Status          string    `json:"status"`
+	Reference       string    `json:"reference"`
+	DisplayText     string    `json:"display_text"`
+	UssdCode        string    `json:"ussd_code"`
+	CountryCode     string    `json:"country_code"`
+	Url             string    `json:"url"`
+	Domain          string    `json:"domain"`
+	Metadata        struct {
+		CustomFields []struct {
+			DisplayName  string `json:"display_name"`
+			VariableName string `json:"variable_name"`
+			Value        string `json:"value"`
+		} `json:"custom_fields"`
+	} `json:"metadata"`
+	GatewayResponse string      `json:"gateway_response"`
+	Message         interface{} `json:"message"`
+	Channel         string      `json:"channel"`
+	IpAddress       string      `json:"ip_address"`
+	Log             interface{} `json:"log"`
+	Fees            int         `json:"fees"`
+	Authorization   struct {
+		AuthorizationCode string `json:"authorization_code"`
+		Bin               string `json:"bin"`
+		Last4             string `json:"last4"`
+		ExpMonth          string `json:"exp_month"`
+		ExpYear           string `json:"exp_year"`
+		Channel           string `json:"channel"`
+		CardType          string `json:"card_type"`
+		Bank              string `json:"bank"`
+		CountryCode       string `json:"country_code"`
+		Brand             string `json:"brand"`
+		Reusable          bool   `json:"reusable"`
+		Signature         string `json:"signature"`
+		AccountName       string `json:"account_name"`
+	} `json:"authorization"`
+	Customer struct {
+		Id           int         `json:"id"`
+		FirstName    interface{} `json:"first_name"`
+		LastName     interface{} `json:"last_name"`
+		Email        string      `json:"email"`
+		CustomerCode string      `json:"customer_code"`
+		Phone        interface{} `json:"phone"`
+		Metadata     interface{} `json:"metadata"`
+		RiskAction   string      `json:"risk_action"`
+	} `json:"customer"`
+	Plan interface{} `json:"plan"`
+}
+
 // Create submits a charge request using card details or bank details or authorization code
 // For more details see https://developers.paystack.co/v1.0/reference#charge
-func (s *ChargeService) Create(req *ChargeRequest) (Response, error) {
-	resp := Response{}
-	err := s.client.Call("POST", "/charge", req, &resp)
+func (s *ChargeService) Create(req *ChargeRequest) (*ChargeResponse, error) {
+	resp := &ChargeResponse{}
+	err := s.client.Call("POST", "/charge", req, resp)
 	return resp, err
 }
 
