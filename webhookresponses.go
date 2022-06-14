@@ -10,7 +10,7 @@ type WebhookObject struct {
 	Data  json.RawMessage `json:"data"`
 }
 type WHCustomerIdentification struct {
-	CustomerId     string `json:"customer_id"`
+	CustomerId     int    `json:"customer_id"`
 	CustomerCode   string `json:"customer_code"`
 	Email          string `json:"email"`
 	Identification struct {
@@ -100,7 +100,7 @@ type WHTransfer struct {
 	Currency    string      `json:"currency"`
 	Domain      string      `json:"domain"`
 	Failures    interface{} `json:"failures"`
-	Id          string      `json:"id"`
+	Id          int         `json:"id"`
 	Integration struct {
 		Id           string `json:"id"`
 		IsLive       bool   `json:"is_live"`
