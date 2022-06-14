@@ -102,7 +102,7 @@ type WHTransfer struct {
 	Failures    interface{} `json:"failures"`
 	Id          int         `json:"id"`
 	Integration struct {
-		Id           string `json:"id"`
+		Id           int    `json:"id"`
 		IsLive       bool   `json:"is_live"`
 		BusinessName string `json:"business_name"`
 	} `json:"integration"`
