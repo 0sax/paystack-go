@@ -120,7 +120,7 @@ type WHTransfer struct {
 		Description   string      `json:"description"`
 		Domain        string      `json:"domain"`
 		Email         interface{} `json:"email"`
-		Id            string      `json:"id"`
+		Id            int         `json:"id"`
 		Integration   int         `json:"integration"`
 		Metadata      interface{} `json:"metadata"`
 		Name          string      `json:"name"`
