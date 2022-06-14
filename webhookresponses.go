@@ -10,7 +10,7 @@ type WebhookObject struct {
 	Data  json.RawMessage `json:"data"`
 }
 type WHCustomerIdentification struct {
-	CustomerId     int    `json:"customer_id"`
+	CustomerId     string `json:"customer_id"`
 	CustomerCode   string `json:"customer_code"`
 	Email          string `json:"email"`
 	Identification struct {
@@ -20,18 +20,18 @@ type WHCustomerIdentification struct {
 	} `json:"identification"`
 }
 type WHCharge struct {
-	Id              int              `json:"id"`
-	Domain          string           `json:"domain"`
-	Status          string           `json:"status"`
-	Reference       string           `json:"reference"`
-	Amount          int              `json:"amount"`
-	Message         interface{}      `json:"message"`
-	GatewayResponse string           `json:"gateway_response"`
-	PaidAt          time.Time        `json:"paid_at"`
-	CreatedAt       time.Time        `json:"created_at"`
-	Channel         string           `json:"channel"`
-	Currency        string           `json:"currency"`
-	IpAddress       string           `json:"ip_address"`
+	Id              string      `json:"id"`
+	Domain          string      `json:"domain"`
+	Status          string      `json:"status"`
+	Reference       string      `json:"reference"`
+	Amount          int         `json:"amount"`
+	Message         interface{} `json:"message"`
+	GatewayResponse string      `json:"gateway_response"`
+	PaidAt          time.Time   `json:"paid_at"`
+	CreatedAt       time.Time   `json:"created_at"`
+	Channel         string      `json:"channel"`
+	Currency        string      `json:"currency"`
+	IpAddress       string      `json:"ip_address"`
 	Metadata        interface{} `json:"metadata"`
 	Log             struct {
 		TimeSpent      int           `json:"time_spent"`
@@ -100,9 +100,9 @@ type WHTransfer struct {
 	Currency    string      `json:"currency"`
 	Domain      string      `json:"domain"`
 	Failures    interface{} `json:"failures"`
-	Id          int         `json:"id"`
+	Id          string      `json:"id"`
 	Integration struct {
-		Id           int    `json:"id"`
+		Id           string `json:"id"`
 		IsLive       bool   `json:"is_live"`
 		BusinessName string `json:"business_name"`
 	} `json:"integration"`
@@ -120,7 +120,7 @@ type WHTransfer struct {
 		Description   string      `json:"description"`
 		Domain        string      `json:"domain"`
 		Email         interface{} `json:"email"`
-		Id            int         `json:"id"`
+		Id            string      `json:"id"`
 		Integration   int         `json:"integration"`
 		Metadata      interface{} `json:"metadata"`
 		Name          string      `json:"name"`
