@@ -25,7 +25,7 @@ type Customer struct {
 	CustomerCode   string         `json:"customer_code,omitempty"`
 	Subscriptions  []Subscription `json:"subscriptions,omitempty"`
 	Authorizations []interface{}  `json:"authorizations,omitempty"`
-	RiskAction     string         `json:"risk_action"`
+	RiskAction     string         `json:"risk_action,omitempty"`
 }
 
 // CustomerList is a list object for customers.
