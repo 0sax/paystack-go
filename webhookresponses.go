@@ -20,7 +20,7 @@ type WHCustomerIdentification struct {
 	} `json:"identification"`
 }
 type WHCharge struct {
-	Id              string      `json:"id"`
+	Id              interface{} `json:"id"`
 	Domain          string      `json:"domain"`
 	Status          string      `json:"status"`
 	Reference       string      `json:"reference"`
