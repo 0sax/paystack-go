@@ -42,16 +42,16 @@ type ChargeRequest struct {
 }
 
 type ChargeResponse struct {
-	Amount          int       `json:"amount"`
-	Currency        string    `json:"currency"`
+	Amount          int         `json:"amount"`
+	Currency        string      `json:"currency"`
 	TransactionDate interface{} `json:"transaction_date"`
-	Status          string    `json:"status"`
-	Reference       string    `json:"reference"`
-	DisplayText     string    `json:"display_text"`
-	UssdCode        string    `json:"ussd_code"`
-	CountryCode     string    `json:"country_code"`
-	Url             string    `json:"url"`
-	Domain          string    `json:"domain"`
+	Status          string      `json:"status"`
+	Reference       string      `json:"reference"`
+	DisplayText     string      `json:"display_text"`
+	UssdCode        string      `json:"ussd_code"`
+	CountryCode     string      `json:"country_code"`
+	Url             string      `json:"url"`
+	Domain          string      `json:"domain"`
 	Metadata        interface{} `json:"metadata"`
 	GatewayResponse string      `json:"gateway_response"`
 	Message         interface{} `json:"message"`
@@ -95,6 +95,14 @@ func (s *ChargeService) Create(req *ChargeRequest) (*ChargeResponse, error) {
 	return resp, err
 }
 
+// ChargeAuth All authorizations marked as reusable can be charged with this endpoint whenever you need to receive payments.
+// For more details see https://paystack.com/docs/api/#transaction-charge-authorization
+func (s *ChargeService) ChargeAuth(req *ChargeRequest) (*ChargeResponse, error) {
+	resp := &ChargeResponse{}
+	err := s.client.Call("POST", "/transaction/charge_authorization", req, resp)
+	return resp, err
+}
+
 // Tokenize tokenizes payment instrument before a charge
 // For more details see https://developers.paystack.co/v1.0/reference#charge-tokenize
 func (s *ChargeService) Tokenize(req *ChargeRequest) (Response, error) {
@@ -107,7 +115,7 @@ func (s *ChargeService) Tokenize(req *ChargeRequest) (Response, error) {
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitPIN(pin, reference string) (*ChargeResponse, error) {
 	data := map[string]interface{}{
-		"pin": pin,
+		"pin":       pin,
 		"reference": reference,
 	}
 	resp := &ChargeResponse{}
@@ -119,7 +127,7 @@ func (s *ChargeService) SubmitPIN(pin, reference string) (*ChargeResponse, error
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitOTP(otp, reference string) (*ChargeResponse, error) {
 	data := map[string]interface{}{
-		"otp": otp,
+		"otp":       otp,
 		"reference": reference,
 	}
 	resp := &ChargeResponse{}
@@ -131,7 +139,7 @@ func (s *ChargeService) SubmitOTP(otp, reference string) (*ChargeResponse, error
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitPhone(phone, reference string) (*ChargeResponse, error) {
 	data := map[string]interface{}{
-		"phone": phone,
+		"phone":     phone,
 		"reference": reference,
 	}
 	resp := &ChargeResponse{}
@@ -143,7 +151,7 @@ func (s *ChargeService) SubmitPhone(phone, reference string) (*ChargeResponse, e
 // For more details see https://developers.paystack.co/v1.0/reference#submit-pin
 func (s *ChargeService) SubmitBirthday(birthday, reference string) (*ChargeResponse, error) {
 	data := map[string]interface{}{
-		"birthday": birthday,
+		"birthday":  birthday,
 		"reference": reference,
 	}
 	resp := &ChargeResponse{}
