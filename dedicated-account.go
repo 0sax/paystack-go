@@ -2,6 +2,7 @@ package paystack
 
 import (
 	"fmt"
+	"net/http"
 )
 
 // DedicatedNubanService handles operations related to Dedicated Accounts
@@ -64,5 +65,14 @@ func (s *DedicatedNubanService) Create(customerCode, bank, subAccount, splitCode
 	}
 	dn = &DedicatedNuban{}
 	err = s.client.Call("POST", u, dnReq, dn)
+	return
+}
+
+// Deactivate delinks a dedicated nuban
+// For more details see https://developers.paystack.co/v1.0/reference#create-customer
+func (s *DedicatedNubanService) Deactivate(account string) (dn *DedicatedNuban, err error) {
+	u := fmt.Sprintf("/dedicated_account/%v", account)
+	dn = &DedicatedNuban{}
+	err = s.client.Call(http.MethodDelete, u, nil, dn)
 	return
 }
