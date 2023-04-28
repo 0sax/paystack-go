@@ -3,6 +3,7 @@ package paystack
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 // DedicatedNubanService handles operations related to Dedicated Accounts
@@ -29,16 +30,16 @@ type DedicatedNuban struct {
 	Metadata      interface{} `json:"metadata"`
 	Active        bool        `json:"active"`
 	Id            int         `json:"id"`
-	CreatedAt     string   `json:"created_at"`
-	UpdatedAt     string   `json:"updated_at"`
+	CreatedAt     string      `json:"created_at"`
+	UpdatedAt     string      `json:"updated_at"`
 	Assignment    struct {
-		Integration  int         `json:"integration"`
-		AssigneeId   int         `json:"assignee_id"`
+		Integration int `json:"integration"`
+		AssigneeId  int `json:"assignee_id"`
 
 		AssigneeType string      `json:"assignee_type"`
 		Expired      bool        `json:"expired"`
 		AccountType  string      `json:"account_type"`
-		AssignedAt   string   `json:"assigned_at"`
+		AssignedAt   string      `json:"assigned_at"`
 		ExpiredAt    interface{} `json:"expired_at"`
 	} `json:"assignment"`
 	Customer struct {
@@ -73,6 +74,17 @@ func (s *DedicatedNubanService) Create(customerCode, bank, subAccount, splitCode
 func (s *DedicatedNubanService) Deactivate(account string) (dn *DedicatedNuban, err error) {
 	u := fmt.Sprintf("/dedicated_account/%v", account)
 	dn = &DedicatedNuban{}
+	err = s.client.Call(http.MethodDelete, u, nil, dn)
+	return
+}
+
+// Requery Dedicated Virtual Account for new transactions
+// For more details see https://paystack.com/docs/api/dedicated-virtual-account#requery
+// date should be formatted yyyy-
+func (s *DedicatedNubanService) Requery(account, providerSlug string, date time.Time) (err error) {
+	dateStr := date.Format("2006-01-02")
+	u := fmt.Sprintf("dedicated_account/requery?account_number=%v&provider_slug=%v&date=%v", account, providerSlug, dateStr)
+	dn := &DedicatedNuban{}
 	err = s.client.Call(http.MethodDelete, u, nil, dn)
 	return
 }
