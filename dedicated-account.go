@@ -85,6 +85,6 @@ func (s *DedicatedNubanService) Requery(account, providerSlug string, date time.
 	dateStr := date.Format("2006-01-02")
 	u := fmt.Sprintf("dedicated_account/requery?account_number=%v&provider_slug=%v&date=%v", account, providerSlug, dateStr)
 	dn := &DedicatedNuban{}
-	err = s.client.Call(http.MethodDelete, u, nil, dn)
+	err = s.client.Call(http.MethodGet, u, nil, dn)
 	return
 }
